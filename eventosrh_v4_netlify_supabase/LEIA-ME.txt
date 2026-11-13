@@ -1,0 +1,35 @@
+EVENTOS RH — MARKETING STUDIO V4 + NETLIFY + SUPABASE
+
+1. NO SUPABASE
+Abra SQL Editor > New query, cole schema.sql, clique Run.
+
+2. NO NETLIFY
+Abra seu site > Site configuration > Environment variables.
+Crie estas variáveis (Scope: Functions):
+  SUPABASE_URL = Project URL do Supabase (https://xxxxx.supabase.co)
+  SUPABASE_SERVICE_ROLE_KEY = chave secreta service_role (ou secret key compatível)
+  PORTAL_PASSWORD = a senha do portal que você definiu
+  SESSION_SECRET = texto aleatório longo, com no mínimo 32 caracteres (use 64+)
+NUNCA cole SUPABASE_SERVICE_ROLE_KEY no HTML nem publique esse valor no GitHub.
+
+3. PUBLICAÇÃO
+IMPORTANTE: o Netlify Drop (arrastar somente HTML/ZIP) não implanta Functions.
+Use repositório GitHub conectado ao Netlify, com esta pasta como raiz do projeto.
+No Netlify, publique um novo deploy após configurar as variáveis.
+A senha só funcionará depois do deploy das Functions.
+
+4. COMO FUNCIONA
+A mesma senha dá acesso aos dois usuários, por 8 horas por sessão.
+Todos têm acesso total a cadastrar, editar, excluir e aprovar.
+Os dados são carregados do Supabase na abertura e salvos após cada alteração.
+O banco usa uma única versão compartilhada. Se duas pessoas editarem ao mesmo tempo,
+o site bloqueia a segunda gravação e pede atualização para evitar sobrescrita.
+Faça backups JSON regularmente.
+
+5. MIGRAÇÃO DOS DADOS ANTIGOS
+Antes de substituir a V4 antiga, exporte um backup JSON pelo botão Backup.
+Depois de publicar a versão integrada, faça login e use Restaurar backup
+para carregar o arquivo e enviá-lo ao Supabase.
+
+ATENÇÃO: a versão exige Netlify Functions. Abrir index.html diretamente no computador
+não conecta ao Supabase. Não use deploy manual por arrastar/soltar.
